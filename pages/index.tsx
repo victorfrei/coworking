@@ -1,14 +1,14 @@
 import axios from 'axios';
 import Head from 'next/head'
 import Image from 'next/image'
-import Projeto, { projetoType } from '../components/projeto'
+import Projeto, { demosType, projetoType } from '../components/projeto'
 
 
 type responseType = {
     nome: string,
     descricao: string,
     thumbnail: string,
-    demos: Array<string>
+    demos: Array<demosType>
 }
 
 export async function getServerSideProps() {

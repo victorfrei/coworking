@@ -1,7 +1,7 @@
 import Head from 'next/head'
 import Image from 'next/image'
 
-type demosType = {
+export type demosType = {
   "url": string,
 }
 

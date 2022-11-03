@@ -1,8 +1,10 @@
 import Head from 'next/head'
 import Image from 'next/image'
+import { SlideshowLightbox } from 'lightbox.js-react';
 
 export type demosType = {
-  "url": string,
+  "src": string,
+  "alt"?: string,
 }
 
 
@@ -11,7 +13,6 @@ export type projetoType = {
   thumbnail: string,
   descricao: string,
   demos: Array<demosType>,
-  showMainTitle?: boolean,
   Parentkey: number
 };
 
@@ -27,12 +28,9 @@ export default function Projeto(props: projetoType) {
       </Head>
 
       <div className="snap-center w-full h-full">
-        {props.showMainTitle &&
-          <h1 className='flex justify-center items-center text-xl bg-black text-white font-bold'>Projetos do Coworking</h1>
-        }
         {/* Imagem e Descrição do Projeto */}
 
-        <div className={`${props.showMainTitle ? 'h-[49vh]' : 'h-[50vh]'} article prose lg:prose-sm max-w-none ${(props.Parentkey % 2 == 0) ? 'bg-[#A2A2A3]' : 'bg-[#4A3A34] text-white'} w-full `}>
+        <div className={`h-[50vh] article prose lg:prose-sm max-w-none ${(props.Parentkey % 2 == 0) ? 'bg-[#A2A2A3]' : 'bg-[#4A3A34] text-white'} w-full `}>
 
           <h1 className={`flex self-start items-end justify-center px-10 pt-5  w-full ${(props.Parentkey % 2 == 0) ? 'text-black' : ' text-white'}`}>{props.nome}</h1>
           <div className="w-full flex text-center justify-between self-center items-center px-64  ">
@@ -64,12 +62,28 @@ export default function Projeto(props: projetoType) {
             <div className="w-full h-4/6 pt-8 flex text-center self-center items-center justify-center">
 
 
-              {
-                props.demos.map((UrlDemo, key) =>
-                  <Image key={key} src={UrlDemo.url} className='px-10' width={220} height={220} alt="Imagem de demostração" />
-                )
-              }
 
+                <SlideshowLightbox className="w-full h-4/6 grid grid-cols-2 lg:flex text-center self-center items-center justify-center" theme="lightbox" lightboxIdentifier="lightbox1" framework="next" images={props.demos}>
+
+                  {
+
+                    props.demos.map((UrlDemo, key) => (
+                      <Image
+                        key={key}
+                        src={UrlDemo?.src}
+                        className='px-10'
+                        alt={UrlDemo?.alt}
+                        height={500}
+                        width={500}
+                        data-lightboxjs="lightbox1"
+                        quality={80}
+
+                      />
+                    ))
+                  }
+
+                </SlideshowLightbox>
+           
 
 
             </div>

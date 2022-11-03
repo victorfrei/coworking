@@ -2,29 +2,58 @@ import axios from 'axios';
 import Head from 'next/head'
 import Image from 'next/image'
 import Projeto, { demosType, projetoType } from '../components/projeto'
-
+import { SlideshowLightbox, initLightboxJS } from 'lightbox.js-react';
+import { useEffect } from 'react';
 
 type responseType = {
-    nome: string,
-    descricao: string,
-    thumbnail: string,
-    demos: Array<demosType>
+  nome: string,
+  descricao: string,
+  thumbnail: string,
+  demos: Array<demosType>
 }
+
+
+const images = [
+  {
+    src: '/branding/adobe.png',
+    alt: 'Mechanical keyboard with white keycaps.',
+  },
+  {
+    src: '/branding/ebay.png',
+    alt: 'Mechanical keyboard with white, pastel green and red keycaps.',
+  },
+  {
+    src: '/branding/loom.png',
+    alt: 'Mechanical keyboard with white, pastel pink, yellow and red keycaps.',
+  },
+  {
+    src: '/branding/tailwindcss_logo.png',
+    alt: 'Mechanical keyboard with white, pastel pink, yellow and red keycaps.',
+  },
+]
 
 export async function getServerSideProps() {
 
   const projetos = (await axios.get("https://coworking-backend-thexarcano.vercel.app/api/projetos")).data
+  const parceiros = (await axios.get("https://coworking-backend-thexarcano.vercel.app/api/parceiros")).data
 
   return {
     props: {
-      projetos, // will be passed to the page component as props
+      projetos,
+      parceiros,
     }
   }
 }
 
 
-export default function Home(props: { projetos: Array<responseType> }) {
-  console.log(props.projetos);
+export default function Home(props: { projetos: Array<responseType>, parceiros: any }) {
+  console.log(props.parceiros);
+
+  useEffect(() => {
+    initLightboxJS("2C59-354E-7777-CE47", "individual");
+  });
+
+
 
   return (
     <div className="text-[#393f46]">
@@ -34,32 +63,37 @@ export default function Home(props: { projetos: Array<responseType> }) {
         <link rel="icon" href="/favicon.ico" />
       </Head>
 
-      <div className='snap-mandatory overflow-scroll snap-y w-screen h-screen'>
+      <div className='snap-mandatory overflow-scroll overflow-x-hidden snap-y w-screen h-screen'>
 
         {/* Seção 1 */}
         <div className="snap-center w-full h-full">
           {/* Home */}
-          <div className='h-1/2 bg-[#f5f5f5] w-full'>
-            <article className="prose prose-slate lg:prose-lg w-full m-0 max-w-none">
-              <div className='flex'>
-                <div className='flex flex-col px-20 pt-10'>
-                  <h1>Um espaço para criatividade</h1>
-                </div>
-                <div className='flex flex-col mr-10'>
-                  <h3 className='flex justify-center items-center'>
-                    Sozinhos podemos fazer tão pouco, juntos podemos fazer tanto... <br />
-                  </h3>
-                  <p className='flex justify-end pt-2 pr-10'>
-                    Helen Keller
-                  </p>
-                  <Image src="/coworking-main.jpg" className='rounded-2xl w-full  h-3/4' width={1000} height={1000} alt="coworking"></Image>
-                </div>
+          <div className='h-1/6 lg:h-1/2 bg-[#f5f5f5] w-full'>
+            <article className="prose prose-slate lg:prose-2xl w-full m-0 max-w-none h-full">
+              <div className='flex justify-center items-center text-center flex-col px-20 h-full'>
+                <h1>Coworking</h1>
+              </div>
+            </article>
+          </div>
+
+          {/* Extras */}
+          <div className='flex flex-col lg:flex-row items-center h-5/6 lg:h-1/2 bg-[#1d1d1d]'>
+            <article className="prose prose-slate prose-sm lg:prose-md  w-full m-0 max-w-none">
+              <div className='flex flex-col justify-center px-5 lg:px-20 pt-2  lg:pt-10 text-white'>
+                <h1 className='text-white text-center'>Um espaço para criatividade</h1>
+              </div>
+
+              <div className='flex justify-center flex-col lg:mr-10'>
+                <h3 className='flex justify-center text-center items-center text-white'>
+                  Sozinhos podemos fazer tão pouco, juntos podemos fazer tanto... <br />
+                </h3>
+                <p className='flex justify-end pt-2 pr-10 text-white'>
+                  Helen Keller
+                </p>
               </div>
 
             </article>
-          </div>
-          {/* Extras */}
-          <div className='h-1/2 bg-[#1d1d1d]'>
+            <Image src="/coworking-main.jpg" className='object-cover ml-auto rounded-3xl p-2 lg:p-4 w-full lg:w-4/6 h-2/4 lg:h-full' width={500} height={500} alt="coworking"></Image>
 
           </div>
 
@@ -71,30 +105,38 @@ export default function Home(props: { projetos: Array<responseType> }) {
 
 
           {/* Branding */}
-          <div className='h-[50vh] article prose lg:prose-sm max-w-none bg-[#1d1d1d] w-full'>
+          <div className='h-2/6 lg:h-[50vh] article prose prose-sm lg:prose-md max-w-none bg-[#1d1d1d] w-full'>
             <div className='h-full'>
               <h1 className='flex h-1/6 self-start justify-center px-10 pt-5 text-white'>Nossos Parceiros</h1>
-              <div className="w-full h-4/6 flex text-center self-center items-center justify-center">
-
-                <Image src="/branding/adobe.svg" className='px-10' width={220} height={220} alt="coworking"></Image>
-                <Image src="/branding/ebay.svg" className='px-10' width={220} height={220} alt="coworking"></Image>
-                <Image src="/branding/loom.svg" className='px-10' width={220} height={220} alt="coworking"></Image>
-                <Image src="/branding/tailwindcss_logo.svg" className='px-10' width={220} height={220} alt="coworking"></Image>
 
 
-              </div>
+              <SlideshowLightbox className="w-full h-4/6 grid grid-cols-2 lg:flex text-center self-center items-center justify-center" theme="lightbox" lightboxIdentifier="lightbox1" framework="next" images={images}>
+                {images.map((image, key) => (
+                  <Image
+                    src={image?.src}
+                    alt={image?.alt}
+                    key={key}
+                    className='w-5/6 lg:w-1/6 lg:h-1/6 px-10'
+                    height={500}
+                    width={500}
+                    data-lightboxjs="lightbox1"
+                    quality={80}
+                  />
+                ))}
+              </SlideshowLightbox>
+
             </div>
           </div>
 
           {/* Quem está a frente? */}
 
-          <div className='h-[50vh] article prose lg:prose-sm max-w-none bg-[#A2A2A3] w-full '>
+          <div className='h-4/6 lg:h-[50vh] article prose prose-sm lg:prose-md max-w-none bg-[#A2A2A3] w-full '>
 
-            <h1 className='flex self-start items-end justify-center px-10 pt-5  w-full'>Quem está a frente do Coworking?</h1>
-            <div className="w-full flex text-center justify-between self-center items-center px-64  ">
+            <h1 className='flex self-start items-end justify-center px-10 pt-5  w-full'>Quem está a frente?</h1>
+            <div className="w-full flex flex-col lg:flex-row text-center lg:justify-between self-center items-center lg:px-64  ">
 
-              <Image src="/edilson.webp" className='mx-5 mb-5 shadow-xl rounded-2xl' width={400} height={200} alt="coworking"></Image>
-              <div>
+              <Image src="/edilson.webp" className='w-3/6 h-1/6 object-cover lg:w-2/6 lg:h-2/6 mx-5 mb-5 shadow-xl rounded-2xl' width={400} height={200} alt="coworking"></Image>
+              <div className='pb-4 px-4'>
                 <h1>Edilson Carlos Silva Lima</h1>
                 <h5>
                   Especialista em ANALISE E DESENVOLVIMENTO DE SISTEMA pela Universidade Federal do Maranhão , Brasil(2009).<br />
@@ -111,9 +153,9 @@ export default function Home(props: { projetos: Array<responseType> }) {
 
         <div className="w-full h-full">
 
-          {props.projetos.map((projeto, key) =>   
-            <Projeto key={key} Parentkey={key} {...projeto} showMainTitle={key == 0 ? true : false} />
-        )}
+          {props.projetos.map((projeto, key) =>
+            <Projeto key={key} Parentkey={key} {...projeto} />
+          )}
 
         </div>
 

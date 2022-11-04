@@ -2,7 +2,7 @@ import axios from 'axios';
 import Head from 'next/head'
 import Image from 'next/image'
 import Projeto, { demosType, projetoType } from '../components/projeto'
-import { SlideshowLightbox, initLightboxJS } from 'lightbox.js-react';
+import { SlideshowLightbox, initLightboxJS } from 'lightbox.js-react'
 import { useEffect } from 'react';
 
 type responseType = {
@@ -12,6 +12,11 @@ type responseType = {
   demos: Array<demosType>
 }
 
+type parceiroType = {
+  nome: string,
+  descricao: string,
+  thumbnail: string
+}
 
 const images = [
   {
@@ -40,19 +45,17 @@ export async function getServerSideProps() {
   return {
     props: {
       projetos,
-      parceiros,
+      parceiros
     }
   }
 }
 
 
 export default function Home(props: { projetos: Array<responseType>, parceiros: any }) {
-  console.log(props.parceiros);
 
   useEffect(() => {
     initLightboxJS("2C59-354E-7777-CE47", "individual");
   });
-
 
 
   return (
@@ -110,11 +113,11 @@ export default function Home(props: { projetos: Array<responseType>, parceiros: 
               <h1 className='flex h-1/6 self-start justify-center px-10 pt-5 text-white'>Nossos Parceiros</h1>
 
 
-              <SlideshowLightbox className="w-full h-4/6 grid grid-cols-2 lg:flex text-center self-center items-center justify-center" theme="lightbox" lightboxIdentifier="lightbox1" framework="next" images={images}>
-                {images.map((image, key) => (
+              <SlideshowLightbox className="w-full h-4/6 grid grid-cols-2 lg:flex text-center self-center items-center justify-center" theme="lightbox" lightboxIdentifier="lightbox1" framework="next" images={props.parceiros}>
+                {props.parceiros.map((parceiro: parceiroType, key: number) => (
                   <Image
-                    src={image?.src}
-                    alt={image?.alt}
+                    src={parceiro.thumbnail}
+                    alt={parceiro.descricao}
                     key={key}
                     className='w-5/6 lg:w-1/6 lg:h-1/6 px-10'
                     height={500}

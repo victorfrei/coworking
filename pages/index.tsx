@@ -2,29 +2,45 @@ import axios from 'axios';
 import Head from 'next/head'
 import Image from 'next/image'
 import Projeto, { demosType, projetoType } from '../components/projeto'
-
+import { SlideshowLightbox, initLightboxJS } from 'lightbox.js-react'
+import { useEffect } from 'react';
 
 type responseType = {
-    nome: string,
-    descricao: string,
-    thumbnail: string,
-    demos: Array<demosType>
+  nome: string,
+  descricao: string,
+  thumbnail: string,
+  demos: Array<demosType>
 }
+
+type parceiroType = {
+  nome: string,
+  descricao: string,
+  thumbnail: string
+}
+
 
 export async function getServerSideProps() {
 
   const projetos = (await axios.get("https://coworking-backend-thexarcano.vercel.app/api/projetos")).data
+  const parceiros = (await axios.get("https://coworking-backend-thexarcano.vercel.app/api/parceiros")).data
+
 
   return {
     props: {
-      projetos, // will be passed to the page component as props
+      projetos,
+      parceiros
     }
   }
 }
 
 
-export default function Home(props: { projetos: Array<responseType> }) {
-  console.log(props.projetos);
+export default function Home(props: { projetos: Array<responseType>, parceiros: any }) {
+
+
+  useEffect(() => {
+    initLightboxJS("2C59-354E-7777-CE47", "individual");
+  });
+
 
   return (
     <div className="text-[#393f46]">
@@ -76,10 +92,21 @@ export default function Home(props: { projetos: Array<responseType> }) {
               <h1 className='flex h-1/6 self-start justify-center px-10 pt-5 text-white'>Nossos Parceiros</h1>
               <div className="w-full h-4/6 flex text-center self-center items-center justify-center">
 
-                <Image src="/branding/adobe.svg" className='px-10' width={220} height={220} alt="coworking"></Image>
-                <Image src="/branding/ebay.svg" className='px-10' width={220} height={220} alt="coworking"></Image>
-                <Image src="/branding/loom.svg" className='px-10' width={220} height={220} alt="coworking"></Image>
-                <Image src="/branding/tailwindcss_logo.svg" className='px-10' width={220} height={220} alt="coworking"></Image>
+
+                <SlideshowLightbox lightboxIdentifier="lightbox1" theme="lightbox" framework="next" images={props.parceiros}>
+                  {props.parceiros.map((parceiro: parceiroType, key: number) => (
+                    <Image
+                      src={parceiro.thumbnail}
+                      alt={parceiro.descricao}
+                      className='w-2/4 h-2/4 '
+                      key={key}
+                      height={500}
+                      width={500}
+                      data-lightboxjs="lightbox1"
+                      quality={80}
+                    />
+                  ))}
+                </SlideshowLightbox>
 
 
               </div>
@@ -111,9 +138,9 @@ export default function Home(props: { projetos: Array<responseType> }) {
 
         <div className="w-full h-full">
 
-          {props.projetos.map((projeto, key) =>   
+          {props.projetos.map((projeto, key) =>
             <Projeto key={key} Parentkey={key} {...projeto} showMainTitle={key == 0 ? true : false} />
-        )}
+          )}
 
         </div>
 

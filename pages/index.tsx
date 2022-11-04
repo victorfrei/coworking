@@ -144,7 +144,7 @@ props.parceiros.map((parceiro: parceiroType, key: any) =>
 
         <div className="w-full h-full">
 
-          {props.projetos.map((projeto, key) =>
+          {props.projetos.map((projeto: responseType, key: number) =>
             <Projeto key={key} Parentkey={key} {...projeto} />
           )}
 

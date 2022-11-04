@@ -71,7 +71,7 @@ props.parceiros.map((parceiro: parceiroType, key: any) =>
 
               <div className='flex justify-center flex-col lg:mr-10'>
                 <h3 className='flex justify-center text-center items-center text-white'>
-                  Sozinhos podemos fazer tão pouco, juntos podemos fazer tanto... <br />
+                  Sozinhos podemos fazer tão pouco, juntos podemos fazer tanto...
                 </h3>
                 <p className='flex justify-end pt-2 pr-10 text-white'>
                   Helen Keller

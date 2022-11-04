@@ -1,10 +1,11 @@
+import axios from 'axios';
 import Head from 'next/head'
 import Image from 'next/image'
-import { SlideshowLightbox } from 'lightbox.js-react';
+import { useState } from 'react';
+import Lightbox, { SlideImage } from 'yet-another-react-lightbox';
 
 export type demosType = {
-  "src": string,
-  "alt"?: string,
+  "url": string,
 }
 
 
@@ -17,7 +18,15 @@ export type projetoType = {
 };
 
 
+
 export default function Projeto(props: projetoType) {
+
+  const [showParceiros, setShowParceiros] = useState(false);
+
+  const slide: Array<SlideImage> = [];
+  props.demos.map((parceiro: demosType, key: any) =>
+    slide.push({src: parceiro.url})
+  );
 
   return (
     <div className="text-[#393f46]">
@@ -60,10 +69,30 @@ export default function Projeto(props: projetoType) {
           <div className='h-full'>
             <h1 className='flex h-1/6 self-start justify-center px-10 pt-5 text-white'>Demos</h1>
             <div className="w-full h-4/6 pt-8 flex text-center self-center items-center justify-center">
+            {props.demos.map((parceiro: demosType, key: any) =>
+                  <Image
+                    src={parceiro.url}
+                    alt="Imagem Demo"
+                    key={key}
+                    height={200}
+                    width={200}
+                    className='w-3/6 lg:w-1/6 lg:h-1/6 px-10'
+                    quality={80}
+                    onClick={()=>setShowParceiros(true)}
+                  />
+                )
+                }
 
 
 
-                <SlideshowLightbox className="w-full h-4/6 grid grid-cols-2 lg:flex text-center self-center items-center justify-center" theme="lightbox" lightboxIdentifier="lightbox1" framework="next" images={props.demos}>
+              <Lightbox
+                open={showParceiros}
+                close={() => setShowParceiros(false)}
+                slides={slide}
+              />
+
+
+              {/* <SlideshowLightbox className="w-full h-4/6 grid grid-cols-2 lg:flex text-center self-center items-center justify-center" theme="lightbox" lightboxIdentifier="lightbox1" framework="next" images={props.demos}>
 
                   {
 
@@ -82,8 +111,8 @@ export default function Projeto(props: projetoType) {
                     ))
                   }
 
-                </SlideshowLightbox>
-           
+                </SlideshowLightbox> */}
+
 
 
             </div>

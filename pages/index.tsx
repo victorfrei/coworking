@@ -2,8 +2,9 @@ import axios from 'axios';
 import Head from 'next/head'
 import Image from 'next/image'
 import Projeto, { demosType, projetoType } from '../components/projeto'
-import { SlideshowLightbox, initLightboxJS } from 'lightbox.js-react'
-import { useEffect } from 'react';
+import Lightbox, { SlideImage } from "yet-another-react-lightbox";
+import { useState } from 'react';
+
 
 type responseType = {
   nome: string,
@@ -17,25 +18,6 @@ type parceiroType = {
   descricao: string,
   thumbnail: string
 }
-
-const images = [
-  {
-    src: '/branding/adobe.png',
-    alt: 'Mechanical keyboard with white keycaps.',
-  },
-  {
-    src: '/branding/ebay.png',
-    alt: 'Mechanical keyboard with white, pastel green and red keycaps.',
-  },
-  {
-    src: '/branding/loom.png',
-    alt: 'Mechanical keyboard with white, pastel pink, yellow and red keycaps.',
-  },
-  {
-    src: '/branding/tailwindcss_logo.png',
-    alt: 'Mechanical keyboard with white, pastel pink, yellow and red keycaps.',
-  },
-]
 
 export async function getServerSideProps() {
 
@@ -51,12 +33,13 @@ export async function getServerSideProps() {
 }
 
 
-export default function Home(props: { projetos: Array<responseType>, parceiros: any }) {
+export default function Home(props: { projetos: Array<responseType>, parceiros: Array<parceiroType> }) {
+const [showParceiros,setShowParceiros] = useState(false);
 
-  useEffect(() => {
-    initLightboxJS("2C59-354E-7777-CE47", "individual");
-  });
-
+const slide: Array<SlideImage> = [];
+props.parceiros.map((parceiro: parceiroType, key: any) =>
+  slide.push({src: parceiro.thumbnail})
+);
 
   return (
     <div className="text-[#393f46]">
@@ -111,22 +94,27 @@ export default function Home(props: { projetos: Array<responseType>, parceiros: 
           <div className='h-2/6 lg:h-[50vh] article prose prose-sm lg:prose-md max-w-none bg-[#1d1d1d] w-full'>
             <div className='h-full'>
               <h1 className='flex h-1/6 self-start justify-center px-10 pt-5 text-white'>Nossos Parceiros</h1>
-
-
-              <SlideshowLightbox className="w-full h-4/6 grid grid-cols-2 lg:flex text-center self-center items-center justify-center" theme="lightbox" lightboxIdentifier="lightbox1" framework="next" images={props.parceiros}>
-                {props.parceiros.map((parceiro: parceiroType, key: number) => (
+              <div className="w-full lg:h-4/6 grid grid-cols-2 lg:flex text-center self-center items-center justify-center">
+                {props.parceiros.map((parceiro: parceiroType, key: any) =>
                   <Image
                     src={parceiro.thumbnail}
                     alt={parceiro.descricao}
                     key={key}
-                    className='w-5/6 lg:w-1/6 lg:h-1/6 px-10'
-                    height={500}
-                    width={500}
-                    data-lightboxjs="lightbox1"
+                    height={200}
+                    width={200}
+                    className='w-3/6 lg:w-1/6 lg:h-1/6 px-10'
                     quality={80}
+                    onClick={()=>setShowParceiros(true)}
                   />
-                ))}
-              </SlideshowLightbox>
+                )
+                }
+              </div>
+
+              <Lightbox
+                open={showParceiros}
+                close={() => setShowParceiros(false)}
+                slides={slide}
+              />
 
             </div>
           </div>

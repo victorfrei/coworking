@@ -1,17 +1,7 @@
 
-import { LockClosedIcon } from '@heroicons/react/20/solid'
 import { useForm, SubmitHandler } from "react-hook-form";
 // import Image from 'next/image'
 
-const formToJSON = (elements: any) =>
-    [].reduce.call(
-        elements,
-        (data: any, element: any) => {
-            data[element.name] = element.value;
-            return data;
-        },
-        {},
-    );
 
 type Inputs = {
     example: string,
@@ -19,6 +9,7 @@ type Inputs = {
     thumbnail: string,
     descricao: string,
 };
+
 
 export default function Form(props:{SubmitHandle: any}) {
     const { register, handleSubmit, formState: { errors } } = useForm<Inputs>();

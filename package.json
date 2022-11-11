@@ -14,6 +14,9 @@
     "next": "13.0.0",
     "react": "18.2.0",
     "react-dom": "18.2.0",
+    "react-hook-form": "^7.39.3",
+    "sweetalert2": "^11.6.8",
+    "sweetalert2-react-content": "^5.0.7",
     "yet-another-react-lightbox": "^2.2.1"
   },
   "devDependencies": {

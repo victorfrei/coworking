@@ -5,6 +5,7 @@ import Projeto, { demosType, projetoType } from '../components/projeto'
 import Lightbox, { SlideImage } from "yet-another-react-lightbox";
 import { useState } from 'react';
 import HeaderMainPage from '../components/HeaderMainPage';
+import Footer from '../components/Footer';
 
 
 type responseType = {
@@ -195,7 +196,7 @@ export default function Home(props: { projetos: Array<responseType>, parceiros: 
       </section>
 
 
-
+      <Footer />
     </div>
   )
 }

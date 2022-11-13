@@ -55,7 +55,7 @@ export default function HeaderMainPage({ nav }: HeaderMainPageProps) {
                 </a>
 
 
-                <ul className="hidden lg:flex flex-row mt-4 font-medium lg:flex-row lg:space-x-8 lg:mt-0">
+                <ul className="hidden md:flex flex-row mt-4 font-medium lg:flex-row lg:space-x-8 lg:mt-0">
                     {NavMenu.map((e: NavMenuItemType, key: number) =>
                         <li key={key} className="px-1">
                             <Link href={e.link} className={`block py-2 pr-4 pl-3 rounded  ${nav != key ? 'text-gray-800  dark:text-gray-400' : 'bg-primary-600 hover:bg-primary-700 dark:hover:bg-primary-700 text-black dark:text-white'} dark:hover:bg-gray-700 text-center lg:text-primary-700 `} aria-current="page">{e.nome}</Link>

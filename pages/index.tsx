@@ -24,17 +24,19 @@ export async function getServerSideProps() {
 
   const projetos = (await axios.get("https://coworking-backend-thexarcano.vercel.app/api/projetos")).data
   const parceiros = (await axios.get("https://coworking-backend-thexarcano.vercel.app/api/parceiros")).data
+  const empresas = (await axios.get("https://coworking-backend-thexarcano.vercel.app/api/empresas")).data
 
   return {
     props: {
       projetos,
-      parceiros
+      parceiros,
+      empresas
     }
   }
 }
 
 
-export default function Home(props: { projetos: Array<responseType>, parceiros: Array<parceiroType> }) {
+export default function Home(props: { projetos: Array<responseType>, parceiros: Array<parceiroType>, empresas: any }) {
   const [showParceiros, setShowParceiros] = useState(false);
 
   const slide: Array<SlideImage> = [];
@@ -97,17 +99,17 @@ export default function Home(props: { projetos: Array<responseType>, parceiros: 
 
 
             {
-              props.projetos.map((e, key) =>
+              props.empresas.map((e: any, key: any) =>
                 <div key={key} className="items-center bg-gray-50 rounded-lg shadow sm:flex dark:bg-gray-800 dark:border-gray-700">
                   <a href="#">
-                    <Image width={200} height={400} className="w-full h-full rounded-lg sm:rounded-none sm:rounded-l-lg" src={e.thumbnail} alt="Bonnie Avatar" />
+                    <Image width={200} height={400} className="w-full h-full rounded-lg sm:rounded-none sm:rounded-l-lg" src={e.thumbnailEmp} alt="Bonnie Avatar" />
                   </a>
                   <div className="pl-5 mt-0 mb-2">
                     <h3 className="text-xl font-bold tracking-tight mt-0 text-gray-900 dark:text-white">
                       <a href="#">{e.nome}</a>
                     </h3>
                     <span className="text-gray-600 dark:text-gray-500">Ramo da Empresa</span>
-                    <p className="mt-5 mb-4 w-80 font-light text-gray-500 dark:text-gray-400">{e.descricao}</p>
+                    <p className="mt-5 mb-4 w-80 font-light text-gray-500 dark:text-gray-400">{e.descricaoEmp}</p>
                     <ul className="flex space-x-4 sm:mt-0">
                       <li>
                         <a href="#" className="text-gray-500 hover:text-gray-900 dark:hover:text-white">

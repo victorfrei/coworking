@@ -11,6 +11,11 @@ type responseType = {
   nome: string,
   descricao: string,
   thumbnail: string,
+  empresa: {
+    nome: string,
+    descricaoEmp: string,
+    thumbnailEmp: string
+  },
   demos: Array<demosType>
 }
 
@@ -19,6 +24,13 @@ type parceiroType = {
   descricao: string,
   thumbnail: string
 }
+
+type empresasType = {
+  nome: string,
+  descricaoEmp: string,
+  thumbnailEmp: string
+}
+
 
 export async function getServerSideProps() {
 
@@ -36,8 +48,9 @@ export async function getServerSideProps() {
 }
 
 
-export default function Home(props: { projetos: Array<responseType>, parceiros: Array<parceiroType>, empresas: any }) {
-  const [showParceiros, setShowParceiros] = useState(false);
+export default function Home(props: { projetos: Array<responseType>, parceiros: Array<parceiroType>, empresas: Array<empresasType> }) {
+  console.log(props.empresas);
+
 
   const slide: Array<SlideImage> = [];
   props.parceiros.map((parceiro: parceiroType, key: any) =>
@@ -166,7 +179,7 @@ export default function Home(props: { projetos: Array<responseType>, parceiros: 
                   <div className="flex items-center space-x-4">
                     <Image width={40} height={40} className="w-7 h-7 rounded-full" src="https://flowbite.s3.amazonaws.com/blocks/marketing-ui/avatars/jese-leos.png" alt="Jese Leos avatar" />
                     <span className="font-medium dark:text-white">
-                      Nome da Empresa
+                      {e.empresa.nome}
                     </span>
                   </div>
                   <a href="#" className="inline-flex items-center font-medium text-primary-600 dark:text-primary-500 hover:underline">

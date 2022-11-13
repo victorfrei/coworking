@@ -177,7 +177,7 @@ export default function Home(props: { projetos: Array<responseType>, parceiros: 
                 <p className="mb-5 font-light text-gray-500 dark:text-gray-400">{e.descricao}</p>
                 <div className="flex justify-between items-center">
                   <div className="flex items-center space-x-4">
-                    <Image width={40} height={40} className="w-7 h-7 rounded-full" src="https://flowbite.s3.amazonaws.com/blocks/marketing-ui/avatars/jese-leos.png" alt="Jese Leos avatar" />
+                    <Image width={40} height={40} className="w-7 h-7 rounded-full" src={e.empresa.thumbnailEmp} alt={e.empresa.descricaoEmp} />
                     <span className="font-medium dark:text-white">
                       {e.empresa.nome}
                     </span>

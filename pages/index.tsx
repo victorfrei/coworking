@@ -112,7 +112,7 @@ export default function Home(props: { projetos: Array<responseType>, parceiros: 
           <div className="grid gap-8 mb-6 lg:mb-16 md:grid-cols-2">
 
 
-            {
+            {props.empresas.length>0 &&
               props.empresas.map((e: any, key: any) =>
                 <div key={key} className="items-center bg-gray-50 rounded-lg shadow sm:flex dark:bg-gray-800 dark:border-gray-700">
                   <a href="#">
@@ -165,7 +165,8 @@ export default function Home(props: { projetos: Array<responseType>, parceiros: 
           </div>
           <div className="grid gap-8 lg:grid-cols-2">
 
-            {props.projetos.map((e, key) =>
+            {
+            props.projetos.map((e, key) =>
               <article key={key} className="p-6 bg-white rounded-lg border border-gray-200 shadow-md dark:bg-gray-800 dark:border-gray-700">
                 <div className="flex justify-between items-center mb-5 text-gray-500">
                   <span className="bg-primary-100 text-primary-800 text-xs font-medium inline-flex items-center px-2.5 py-0.5 rounded dark:bg-primary-200 dark:text-primary-800">

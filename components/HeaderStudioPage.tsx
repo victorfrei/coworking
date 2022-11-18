@@ -11,7 +11,7 @@ export default function HeaderStudioPage() {
                 fluid={true}
                 rounded={true}
             >
-                <Navbar.Brand href="https://flowbite.com/">
+                <Navbar.Brand href="/">
 
                     <span className="self-center whitespace-nowrap text-xl font-semibold dark:text-white">
                         Coworking
@@ -20,22 +20,19 @@ export default function HeaderStudioPage() {
 
                 <Navbar.Collapse>
                     <Navbar.Link
-                        href="/navbars"
+                        href="/user/empresas"
                         active={false}
                     >
                         Empresas
                     </Navbar.Link>
-                    <Navbar.Link href="/navbars">
+                    <Navbar.Link href="/user/empresas/projetos">
                         Projetos
                     </Navbar.Link>
-                    <Navbar.Link href="/navbars" active={true}>
+                    <Navbar.Link href="/user/parceiros" active={true}>
                         Parceiros
                     </Navbar.Link>
-                    <Navbar.Link href="/navbars">
+                    <Navbar.Link href="/user/usuários">
                         Usuários
-                    </Navbar.Link>
-                    <Navbar.Link href="/navbars">
-                        Sessões
                     </Navbar.Link>
 
                 </Navbar.Collapse>
@@ -50,7 +47,7 @@ export default function HeaderStudioPage() {
                                 Bonnie Green
                             </span>
                             <span className="block truncate text-sm font-medium">
-                                name@flowbite.com
+                                name@coworking.com
                             </span>
                         </Dropdown.Header>
                         <Dropdown.Item>

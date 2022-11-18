@@ -25,11 +25,6 @@ const NavMenu = [
 
     },
     {
-        nome: 'Equipe',
-        link: '/equipe',
-
-    },
-    {
         nome: 'Contato',
         link: '/contato',
 
@@ -49,10 +44,10 @@ export default function HeaderMainPage({ nav }: HeaderMainPageProps) {
 
         <nav className="fixed w-full bg-white text-center border-gray-200 px-4 lg:px-6 py-2.5 dark:bg-gray-800">
             <div className="flex flex-wrap justify-between items-center mx-auto max-w-screen-xl">
-                <a href="https://flowbite.com" className="flex items-center">
+                <Link href="/" className="flex items-center">
                     {/* <Image width={50} height={50} src="https://flowbite.com/docs/images/logo.svg" className="mr-3 h-6 sm:h-9" alt="Flowbite Logo" /> */}
                     <span className="self-center text-xl font-bold whitespace-nowrap dark:text-white">Coworking</span>
-                </a>
+                </Link>
 
 
                 <ul className="hidden md:flex flex-row mt-4 font-medium lg:flex-row lg:space-x-8 lg:mt-0">
@@ -73,7 +68,7 @@ export default function HeaderMainPage({ nav }: HeaderMainPageProps) {
 
 
 
-                        <a href="#" className="hidden md:flex text-gray-800 dark:text-white rounded hover:bg-primary-800 focus:ring-4 focus:ring-gray-300 font-medium text-sm px-4 lg:px-5 py-2 lg:py-2.5 mr-2 dark:hover:bg-primary-400 focus:outline-none dark:focus:ring-indigo-800">Entrar</a>
+                        <Link href="/user" className="hidden md:flex text-gray-800 dark:text-white rounded hover:bg-primary-800 focus:ring-4 focus:ring-gray-300 font-medium text-sm px-4 lg:px-5 py-2 lg:py-2.5 mr-2 dark:hover:bg-primary-400 focus:outline-none dark:focus:ring-indigo-800">Entrar</Link>
                         {/* <a href="#" className="text-white bg-primary-700 rounded hover:bg-primary-800 focus:ring-4 focus:ring-primary-300 font-medium text-sm px-4 lg:px-5 py-2 lg:py-2.5 mr-2 dark:bg-primary-600 dark:hover:bg-primary-700 focus:outline-none dark:focus:ring-primary-800">Get started</a> */}
 
 

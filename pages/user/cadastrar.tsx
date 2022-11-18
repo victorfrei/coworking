@@ -61,7 +61,7 @@ export default function Index() {
                         <input id="terms" aria-describedby="terms" {...register("termos")} type="checkbox" className="w-4 h-4 border border-gray-300 rounded bg-gray-50 focus:ring-3 focus:ring-primary-300 dark:bg-gray-700 dark:border-gray-600 dark:focus:ring-primary-600 dark:ring-offset-gray-800" />
                       </div>
                       <div className="ml-3 text-sm">
-                        <label htmlFor="terms" className="font-light text-gray-500 dark:text-gray-300">Eu concordo com os <a className="font-medium text-primary-600 hover:underline dark:text-primary-500" href="#">Termos e Condições</a></label>
+                        <label htmlFor="terms" className="font-light text-gray-500 dark:text-gray-300">Eu concordo com os <Link className="font-medium text-primary-600 hover:underline dark:text-primary-500" href="#">Termos e Condições</Link></label>
                       </div>
                   </div>
                   <button type="submit" className="w-full text-white bg-primary-600 hover:bg-primary-700 focus:ring-4 focus:outline-none focus:ring-primary-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-primary-600 dark:hover:bg-primary-700 dark:focus:ring-primary-800">Criar a Conta</button>

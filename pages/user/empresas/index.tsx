@@ -15,9 +15,6 @@ export async function getServerSideProps() {
     }
   }
   
-
-
-
 export default function CheckboxListSecondary(props:{parceiros: any}) {
     const [checked, setChecked] = React.useState([1]);
 
